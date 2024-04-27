@@ -1,0 +1,46 @@
+# goreleaser.yml
+project_name: clouddley
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: "clouddley"
+    main: . # Adjusted to point to the root where main.go is located
+    binary: clouddley
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags: -s -w -X 'cmd.Version={{.Version}}'
+    hooks:
+      post: gzip -f '{{ .Path }}'
+
+archives:
+  - id: "archive"
+    builds:
+      - "clouddley"
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - none
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+release:
+  prerelease: auto
