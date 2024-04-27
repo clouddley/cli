@@ -11,6 +11,8 @@ builds:
     main: .
     binary: clouddley
     ldflags: -s -w -X 'cmd.Version={{.Version}}'
+    env:
+      - CGO_ENABLED=0
     targets:
       - linux_amd64
       - linux_arm64
@@ -29,8 +31,6 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
-    files:
-      - dist/{{ .Binary }}_{{ .Os }}_{{ .Arch }}/*.gz # Include the gzipped binaries
 
 checksum:
   name_template: "checksums.txt"
@@ -41,6 +41,3 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
-
-release:
-  prerelease: auto

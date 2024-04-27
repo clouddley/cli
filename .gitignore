@@ -37,3 +37,4 @@ hugo.linux
 go.work
 
 .idea
+dist/
