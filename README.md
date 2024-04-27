@@ -5,13 +5,13 @@ The Clouddley CLI is a command-line tool that allows you to interact with the Cl
 ## Installation
 
 ```bash
-curl -sL https://clouddley.com/install | bash
+curl -sL https://clouddley.com/install | sh
 ```
 
 ## Usage
 
 ```bash
-  clouddley [command]
+clouddley [command]
 
 Available Commands:
   completion  Generate the autocompletion script for the specified shell
