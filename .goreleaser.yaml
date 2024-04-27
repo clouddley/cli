@@ -8,29 +8,29 @@ before:
 
 builds:
   - id: "clouddley"
-    main: . # Adjusted to point to the root where main.go is located
+    main: .
     binary: clouddley
-    goos:
-      - linux
-      - darwin
-      - windows
-    goarch:
-      - amd64
-      - arm64
     ldflags: -s -w -X 'cmd.Version={{.Version}}'
-    hooks:
-      post: gzip -f '{{ .Path }}'
+    targets:
+      - linux_amd64
+      - linux_arm64
+      - darwin_amd64
+      - darwin_arm64
+      - windows_amd64
+      - windows_arm64
 
 archives:
   - id: "archive"
+
     builds:
       - "clouddley"
+
     format: tar.gz
     format_overrides:
       - goos: windows
         format: zip
     files:
-      - none
+      - dist/{{ .Binary }}_{{ .Os }}_{{ .Arch }}/*.gz # Include the gzipped binaries
 
 checksum:
   name_template: "checksums.txt"
