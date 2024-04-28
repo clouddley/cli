@@ -61,7 +61,9 @@ mv "$tmp_dir/clouddley" "$exe"
 rm -rf "$tmp_dir"  # Clean up
 
 # Create a symlink or add the path to shell profile
-ln -sf "$exe" "$bin_dir/clouddley"
+if [ ! -L "$bin_dir/clouddley" ]; then
+    ln -sf "$exe" "$bin_dir/clouddley"
+fi
 
 # Check installation and provide feedback
 echo "Clouddley CLI was installed successfully to $exe"
