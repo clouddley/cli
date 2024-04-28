@@ -18,6 +18,18 @@ Installing a specific version:
 curl -L https://raw.githubusercontent.com/clouddley/cli/main/install.sh | sh -s 0.1.1
 ```
 
+### Windows
+
+Run the following command in PowerShell:
+
+```powershell
+iwr https://raw.githubusercontent.com/clouddley/cli/main/install.ps1 -useb | iex
+```
+
+### Manual Installation
+
+You can also download the binary for your platform from the [releases page](https://github.com/clouddley/cli/releases) and add it to your PATH.
+
 ## Usage
 
 ```bash
