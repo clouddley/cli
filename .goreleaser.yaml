@@ -37,7 +37,8 @@ archives:
 
     format: tar.gz
     format_overrides:
-      - format: tar.gz
+      - goos: windows
+        format: zip
 
 checksum:
   name_template: "checksums.txt"

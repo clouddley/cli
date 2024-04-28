@@ -10,7 +10,7 @@ GITHUB_REPO="clouddley/cli"
 fetch_latest_version() {
     curl -s "https://api.github.com/repos/$GITHUB_REPO/releases/latest" | \
     grep '"tag_name":' | \
-    sed -E 's/.*"([^"]+)".*/\1/'  # Keep the 'v' for the version
+    sed -E 's/.*"([^"]+)".*/\1/'
 }
 
 # Use the fetched version or default to a specified version if fetching fails
@@ -32,7 +32,6 @@ exe="$bin_dir/clouddley"
 mkdir -p "$bin_dir"
 mkdir -p "$tmp_dir"
 
-# Construct the download URL
 os=$(uname -s)
 arch=$(uname -m)
 case "$os" in
@@ -46,7 +45,7 @@ case "$arch" in
     *) echo "Unsupported architecture: $arch"; exit 1 ;;
 esac
 
-# Remove the 'v' from the filename part of the URL
+
 filename_version=$(echo "$version" | sed 's/^v//')
 download_url="https://github.com/$GITHUB_REPO/releases/download/$version/clouddley_${filename_version}_${os}_${arch}.tar.gz"
 
@@ -60,8 +59,8 @@ chmod +x "$tmp_dir/clouddley"
 mv "$tmp_dir/clouddley" "$exe"
 rm -rf "$tmp_dir"  # Clean up
 
-# Create a symlink in /usr/local/bin or another common bin directory if required
-common_bin="/usr/local/bin/clouddley"  # Adjust this path as necessary
+# Create a symlink in /usr/local/bin
+common_bin="/usr/local/bin/clouddley"
 if [ ! -f "$common_bin" ]; then  # Check if the symlink does not already exist
     echo "Creating symlink at $common_bin. You may be prompted for your password."
     sudo ln -sf "$exe" "$common_bin"

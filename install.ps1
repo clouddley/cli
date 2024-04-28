@@ -36,7 +36,7 @@ New-Item -ItemType Directory -Force -Path $bin_dir, $tmp_dir | Out-Null
 
 # Construct the download URL
 $os = if ($env:OS -eq "Windows_NT") { "Windows" } else { Write-Error "Unsupported OS: $env:OS"; exit 1 }
-$arch = if ([Environment]::Is64BitOperatingSystem) { "x86_64" } else { "arm64" } # Simplified assumption
+$arch = if ([Environment]::Is64BitOperatingSystem) { "x86_64" } else { "arm64" }
 
 # Remove the 'v' from the filename part of the URL
 $filename_version = $version -replace '^v', ''
