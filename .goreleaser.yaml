@@ -13,24 +13,30 @@ builds:
     ldflags: -s -w -X 'cmd.Version={{.Version}}'
     env:
       - CGO_ENABLED=0
-    targets:
-      - linux_x86_64
-      - linux_arm64
-      - darwin_x86_64
-      - darwin_arm64
-      - windows_x86_64
-      - windows_arm64
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
 
 archives:
-  - id: "archive"
-
+  - id: default
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version}}_
+      {{- if eq .Os "windows" }}Windows
+      {{- else if eq .Os "darwin" }}macOS
+      {{- else if eq .Os "linux" }}Linux
+      {{- else }}{{ .Os }}{{- end }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{- end }}
     builds:
       - "clouddley"
 
     format: tar.gz
     format_overrides:
-      - goos: windows
-        format: zip
+      - format: tar.gz
 
 checksum:
   name_template: "checksums.txt"
