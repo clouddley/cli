@@ -56,13 +56,17 @@ curl -fSL --progress-bar "$download_url" -o "$tmp_dir/clouddley.tar.gz"
 tar -C "$tmp_dir" -xzf "$tmp_dir/clouddley.tar.gz"
 chmod +x "$tmp_dir/clouddley"
 
-# Atomically move the executable to bin directory
+# Atomically move the executable to the bin directory
 mv "$tmp_dir/clouddley" "$exe"
 rm -rf "$tmp_dir"  # Clean up
 
-# Create a symlink or add the path to shell profile
-if [ ! -L "$bin_dir/clouddley" ]; then
-    ln -sf "$exe" "$bin_dir/clouddley"
+# Create a symlink in /usr/local/bin or another common bin directory if required
+common_bin="/usr/local/bin/clouddley"  # Adjust this path as necessary
+if [ ! -f "$common_bin" ]; then  # Check if the symlink does not already exist
+    sudo ln -sf "$exe" "$common_bin"
+    echo "Symlink created at $common_bin"
+else
+    echo "Symlink already exists"
 fi
 
 # Check installation and provide feedback
@@ -70,12 +74,7 @@ echo "Clouddley CLI was installed successfully to $exe"
 if command -v clouddley >/dev/null; then
     echo "Run 'clouddley --help' to get started"
 else
-    case $SHELL in
-    /bin/zsh) shell_profile=".zshrc" ;;
-    *) shell_profile=".bash_profile" ;;
-    esac
-    echo "Manually add the directory to your \$HOME/$shell_profile (or similar):"
-    echo "  export CLOUDDLEY_INSTALL=\"$clouddley_install\""
-    echo "  export PATH=\"\$CLOUDDLEY_INSTALL/bin:\$PATH\""
-    echo "Run '$exe --help' to get started"
+    echo "Please ensure $exe is in your PATH to use the Clouddley CLI"
+    echo "Add the following line to your shell profile script:"
+    echo "export PATH=\"$clouddley_install/bin:\$PATH\""
 fi
