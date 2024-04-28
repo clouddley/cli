@@ -4,8 +4,18 @@ The Clouddley CLI is a command-line tool that allows you to interact with the Cl
 
 ## Installation
 
+### MacOS, Linux, and WSL
+
+Installing the latest version:
+
 ```bash
-curl -sL https://clouddley.com/install | sh
+curl -L https://raw.githubusercontent.com/clouddley/cli/main/install.sh | sh
+```
+
+Installing a specific version:
+
+```bash
+curl -L https://raw.githubusercontent.com/clouddley/cli/main/install.sh | sh -s 0.1.1
 ```
 
 ## Usage
@@ -25,7 +35,7 @@ Flags:
 
 ## Contributing
 
-If you have any suggestions, feature requests, or bug reports, please create an issue on the [GitHub repository](https://githiub.com/clouddley/cli).
+If you have any suggestions, feature requests, or bug reports, please create an issue on the [GitHub repository](https://github.com/clouddley/cli).
 
 ## License
 
