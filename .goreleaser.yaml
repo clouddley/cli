@@ -14,11 +14,11 @@ builds:
     env:
       - CGO_ENABLED=0
     targets:
-      - linux_amd64
+      - linux_x86_64
       - linux_arm64
-      - darwin_amd64
+      - darwin_x86_64
       - darwin_arm64
-      - windows_amd64
+      - windows_x86_64
       - windows_arm64
 
 archives:
@@ -41,3 +41,4 @@ changelog:
     exclude:
       - "^docs"
       - "^test"
+      - "^ci"
