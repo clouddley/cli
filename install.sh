@@ -63,6 +63,7 @@ rm -rf "$tmp_dir"  # Clean up
 # Create a symlink in /usr/local/bin or another common bin directory if required
 common_bin="/usr/local/bin/clouddley"  # Adjust this path as necessary
 if [ ! -f "$common_bin" ]; then  # Check if the symlink does not already exist
+    echo "Creating symlink at $common_bin. You may be prompted for your password."
     sudo ln -sf "$exe" "$common_bin"
     echo "Symlink created at $common_bin"
 else
