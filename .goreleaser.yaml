@@ -10,7 +10,8 @@ builds:
   - id: "clouddley"
     main: .
     binary: clouddley
-    ldflags: -s -w -X 'cmd.Version={{.Version}}'
+    ldflags:
+      - -s -w -X 'github.com/clouddley/clouddley/cmd.Version={{.Version}}'
     env:
       - CGO_ENABLED=0
     goos:
