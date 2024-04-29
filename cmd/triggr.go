@@ -20,8 +20,9 @@ var triggrCmd = &cobra.Command{
 
 // installCmd represents the install command
 var installCmd = &cobra.Command{
-	Use:   "install",
-	Short: "Install SSH Public Key",
+	Use:     "install",
+	Aliases: []string{"i"},
+	Short:   "Install SSH Public Key",
 	Long: `Install triggr's SSH public key on your server to enable secure communication between your server and the Clouddley Platform. For example:
 
 	clouddley triggr install`,
@@ -60,5 +61,3 @@ func init() {
 	triggrCmd.AddCommand(installCmd)
 
 }
-
-
