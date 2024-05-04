@@ -25,10 +25,10 @@ var Version = "development"
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "clouddley",
-	Short: "A command line tool for the Clouddley Platform",
-	Long: `Manage Cloud Platform resources for your CLI.  For example:
-	clouddley triggr install`,
+	Use:     "clouddley",
+	Short:   "A command line tool for the Clouddley Platform",
+	Long:    `Manage Cloud Platform resources from your CLI. `,
+	Example: "clouddley triggr install",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
