@@ -1,4 +1,3 @@
-# Custom Clouddley CLI installer script for PowerShell
 
 # Exit on error
 $ErrorActionPreference = "Stop"
@@ -27,7 +26,8 @@ if (-not $version) {
 Write-Host "Installing Clouddley CLI version $version"
 
 # Define installation directories
-$clouddley_install = "${env:CLOUDDLEY_INSTALL -join $env:USERPROFILE\.clouddley}"
+# Use $env:CLOUDDLEY_INSTALL if set; otherwise, default to ~/.clouddley
+$clouddley_install = $env:CLOUDDLEY_INSTALL -or (Join-Path $env:USERPROFILE ".clouddley")
 $bin_dir = Join-Path $clouddley_install "bin"
 $tmp_dir = Join-Path $clouddley_install "tmp"
 $exe = Join-Path $bin_dir "clouddley.exe"
@@ -35,8 +35,21 @@ $exe = Join-Path $bin_dir "clouddley.exe"
 New-Item -ItemType Directory -Force -Path $bin_dir, $tmp_dir | Out-Null
 
 # Construct the download URL
-$os = if ($env:OS -eq "Windows_NT") { "Windows" } else { Write-Error "Unsupported OS: $env:OS"; exit 1 }
-$arch = if ([Environment]::Is64BitOperatingSystem) { "x86_64" } else { "arm64" }
+if ($env:OS -eq "Windows_NT") {
+    $os = "Windows"
+} else {
+    Write-Error "Unsupported OS: $env:OS"
+    exit 1
+}
+
+# Architecture handling
+if ([Environment]::Is64BitOperatingSystem) {
+    $arch = "x86_64"
+} else {
+    # If you do NOT support 32-bit or any other arch, explicitly fail:
+    Write-Error "Unsupported architecture (32-bit). Exiting."
+    exit 1
+}
 
 # Remove the 'v' from the filename part of the URL
 $filename_version = $version -replace '^v', ''
@@ -44,11 +57,11 @@ $download_url = "https://github.com/$GITHUB_REPO/releases/download/$version/clou
 
 # Download and extract the zip file
 Write-Host "Downloading Clouddley CLI from $download_url..."
-Invoke-WebRequest -Uri $download_url -OutFile "$tmp_dir\clouddley.zip"
-Expand-Archive -Path "$tmp_dir\clouddley.zip" -DestinationPath $tmp_dir -Force
+Invoke-WebRequest -Uri $download_url -OutFile (Join-Path $tmp_dir "clouddley.zip")
+Expand-Archive -Path (Join-Path $tmp_dir "clouddley.zip") -DestinationPath $tmp_dir -Force
 
 # Move the executable to the bin directory
-Move-Item -Path "$tmp_dir\clouddley.exe" -Destination $exe -Force
+Move-Item -Path (Join-Path $tmp_dir "clouddley.exe") -Destination $exe -Force
 Remove-Item -Path $tmp_dir -Recurse -Force
 
 # Add to PATH if not already present
