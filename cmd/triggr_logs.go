@@ -19,7 +19,7 @@ var logsCmd = &cobra.Command{
 	Aliases: []string{"log"},
 	Short:   "View service logs",
 	Long:    `View logs for a Docker service. Use -f flag to follow/tail the logs.`,
-	Example: `clouddley triggr logs mongodb
+	Example: `clouddley triggr logs servicename
 clouddley triggr logs -f servicename`,
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
