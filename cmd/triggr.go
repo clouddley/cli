@@ -57,5 +57,6 @@ var installCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(triggrCmd)
 	triggrCmd.AddCommand(installCmd)
+	triggrCmd.AddCommand(logsCmd)
 
 }
