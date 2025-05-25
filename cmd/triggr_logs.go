@@ -18,12 +18,21 @@ var logsCmd = &cobra.Command{
 	Use:     "logs [SERVICE]",
 	Aliases: []string{"log"},
 	Short:   "View service logs",
-	Long:    `View logs for a Docker service. Use -f flag to follow/tail the logs.`,
+	Long:    `View logs for a Docker service. Use -f flag to follow/tail the logs.
+
+NOTE:
+  Execute this command on the same machine or virtual machine
+  where your Triggr service is running; otherwise no logs will appear.`,
 	Example: `clouddley triggr logs servicename
 clouddley triggr logs -f servicename`,
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		service := args[0]
+
+		// Check if Docker is accessible
+		if err := exec.Command("docker", "info").Run(); err != nil {
+			color.Yellow("⚠️  Unable to reach your Triggr service host. Run this command on the machine where the service lives.")
+		}
 
 		cmdParts := []string{"docker", "service", "logs"}
 		if followFlag {
