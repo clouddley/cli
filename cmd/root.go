@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/clouddley/clouddley/cmd/vm"
 	"github.com/spf13/cobra"
 )
 
@@ -45,6 +46,7 @@ var versionCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(vm.VmCmd)
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

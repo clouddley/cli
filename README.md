@@ -40,10 +40,59 @@ Available Commands:
   help        Help about any command
   triggr      Manage Triggr resources
   version     Print the version number of Clouddley CLI
+  vm          Manage virtual machines across cloud providers
 
 Flags:
   -h, --help   help for clouddley
 ```
+
+### VM Management
+
+The Clouddley CLI now supports creating and managing virtual machines on AWS:
+
+#### AWS Prerequisites
+
+1. Configure AWS credentials:
+   ```bash
+   # Set your AWS profile
+   export AWS_PROFILE=your-profile-name
+   
+   # Or configure default credentials
+   aws configure
+   ```
+
+2. Ensure you have SSH keys:
+   ```bash
+   # Generate an SSH key if you don't have one
+   ssh-keygen -t ed25519 -C "your_email@example.com"
+   # or
+   ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   ```
+
+#### VM Commands
+
+```bash
+# Create a new AWS EC2 instance (interactive)
+clouddley vm aws create
+
+# List all instances created by Clouddley CLI
+clouddley vm aws list
+
+# Stop an instance
+clouddley vm aws stop --id i-1234567890abcdef0
+
+# Delete (terminate) an instance
+clouddley vm aws delete --id i-1234567890abcdef0
+```
+
+#### Features
+
+- **Interactive UI**: Uses Bubble Tea for beautiful interactive selection of environment and instance types
+- **Smart SSH Key Management**: Automatically detects and imports local SSH keys to AWS
+- **Environment-Based Pricing**: Shows different instance types for development/test vs production workloads
+- **Cost Visibility**: Displays estimated monthly costs for each instance type
+- **Safe Operations**: Confirmation prompts for destructive operations
+- **AWS Profile Support**: Respects your AWS_PROFILE environment variable
 
 ## Contributing
 

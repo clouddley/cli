@@ -4,8 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/fatih/color"
-
+	"github.com/clouddley/clouddley/internal/log"
 	"github.com/spf13/cobra"
 )
 
@@ -29,7 +28,7 @@ var installCmd = &cobra.Command{
 
 		homeDir, err := os.UserHomeDir()
 		if err != nil {
-			color.Red("Error getting your home directory: %v", err)
+			log.Error("Error getting your home directory", "error", err)
 			os.Exit(1)
 		}
 
@@ -37,7 +36,7 @@ var installCmd = &cobra.Command{
 
 		file, err := os.OpenFile(authKeyFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {
-			color.Red("Error opening authorized_keys file: %v", err)
+			log.Error("Error opening authorized_keys file", "error", err)
 			os.Exit(1)
 		}
 
@@ -45,11 +44,11 @@ var installCmd = &cobra.Command{
 
 		// Write the public key to the authorized_keys file
 		if _, err := file.WriteString(sshPublicKey + "\n"); err != nil {
-			color.Red("Error writing to authorized_keys file: %v", err)
+			log.Error("Error writing to authorized_keys file", "error", err)
 			os.Exit(1)
 		}
 
-		color.Green("Triggr's SSH public key has been installed successfully.")
+		log.Info("Triggr's SSH public key has been installed successfully")
 
 	},
 }

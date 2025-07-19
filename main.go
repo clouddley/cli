@@ -15,10 +15,14 @@ limitations under the License.
 */
 package main
 
-import "github.com/clouddley/clouddley/cmd"
+import (
+	"github.com/clouddley/clouddley/cmd"
+	"github.com/clouddley/clouddley/internal/log"
+)
 
 func main() {
+	// Initialize the logger with beautiful charm styling
+	log.InitLogger()
+	
 	cmd.Execute()
 }
-
-
