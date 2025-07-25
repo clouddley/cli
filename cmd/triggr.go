@@ -56,8 +56,11 @@ var installCmd = &cobra.Command{
 }
 
 func init() {
+	// Enable command suggestions for misspelled commands
+	triggrCmd.DisableSuggestions = false
+	triggrCmd.SuggestionsMinimumDistance = 2
+	
 	rootCmd.AddCommand(triggrCmd)
 	triggrCmd.AddCommand(installCmd)
 	triggrCmd.AddCommand(logsCmd)
-
 }

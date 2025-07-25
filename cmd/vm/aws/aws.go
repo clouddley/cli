@@ -17,6 +17,10 @@ var AwsCmd = &cobra.Command{
 }
 
 func init() {
+	// Enable command suggestions for misspelled commands
+	AwsCmd.DisableSuggestions = false
+	AwsCmd.SuggestionsMinimumDistance = 2
+	
 	// Add subcommands
 	AwsCmd.AddCommand(createCmd)
 	AwsCmd.AddCommand(listCmd)

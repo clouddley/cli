@@ -17,6 +17,10 @@ var VmCmd = &cobra.Command{
 }
 
 func init() {
+	// Enable command suggestions for misspelled commands
+	VmCmd.DisableSuggestions = false
+	VmCmd.SuggestionsMinimumDistance = 2
+	
 	// Add AWS subcommands
 	VmCmd.AddCommand(aws.AwsCmd)
 }

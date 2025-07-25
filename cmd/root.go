@@ -45,6 +45,10 @@ var versionCmd = &cobra.Command{
 }
 
 func init() {
+	// Enable command suggestions for misspelled commands
+	rootCmd.DisableSuggestions = false
+	rootCmd.SuggestionsMinimumDistance = 2
+	
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(vm.VmCmd)
 }

@@ -19,6 +19,7 @@ var addCmd = &cobra.Command{
 // keyCmd represents the key command
 var keyCmd = &cobra.Command{
 	Use:     "key",
+	Aliases: []string{"k"},
 	Short:   "Add SSH Public Key",
 	Long:    `Add Clouddley's SSH public key to your server's authorized_keys file to enable secure communication between your server and the Clouddley Platform.`,
 	Example: "clouddley add key",
@@ -52,6 +53,10 @@ var keyCmd = &cobra.Command{
 }
 
 func init() {
+	// Enable command suggestions for misspelled commands
+	addCmd.DisableSuggestions = false
+	addCmd.SuggestionsMinimumDistance = 2
+	
 	rootCmd.AddCommand(addCmd)
 	addCmd.AddCommand(keyCmd)
 }
