@@ -15,7 +15,7 @@ curl -L https://raw.githubusercontent.com/clouddley/cli/main/install.sh | sh
 Installing a specific version:
 
 ```bash
-curl -L https://raw.githubusercontent.com/clouddley/cli/main/install.sh | sh -s v0.1.4
+curl -L https://raw.githubusercontent.com/clouddley/cli/main/install.sh | sh -s v1.0.0
 ```
 
 ### Windows
